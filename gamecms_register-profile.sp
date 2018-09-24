@@ -6,7 +6,7 @@
 
 public Plugin myinfo = {
     description = "Регистрация и просмотр профиля через внутриигровое меню",
-    version     = "1.0.1",
+    version     = "1.0.1.1",
     author      = "CrazyHackGUT, Rostu, Alexbu444",
     name        = "[GameCMS] Register / Profile",
     url         = "http://discord.gg/69kETMy"
@@ -59,8 +59,7 @@ public void OnPluginStart() {
     g_hMenus[MAINMENU].SetTitle("Регистрация на сайте");
     g_hMenus[MAINMENU].AddItem(NULL_STRING, "Логин: Не указан");
     g_hMenus[MAINMENU].AddItem(NULL_STRING, "E-Mail: Не указан");
-    g_hMenus[MAINMENU].AddItem(NULL_STRING, "Пароль: Не указан");
-    g_hMenus[MAINMENU].AddItem(NULL_STRING, NULL_STRING, ITEMDRAW_SPACER);
+    g_hMenus[MAINMENU].AddItem(NULL_STRING, "Пароль: Не указан\n ");
     g_hMenus[MAINMENU].AddItem(NULL_STRING, "Зарегистрироваться");
     g_hMenus[MAINMENU].AddItem(NULL_STRING, "Сбросить все введённые данные");
 
@@ -112,10 +111,7 @@ void DB_FetchUser(int iClient) {
                                         FROM \
                                             `users` \
                                         WHERE \
-                                            `steam_id` = '%s' \
-                                            OR `steam_id` = '%s' \
-                                            OR `steam_id` = '%s' \
-                                            OR `steam_id` = '%s' \
+                                        	`steam_id` IN('%s', '%s', '%s') \
                                             OR `steam_api` = '%s';", szAuthIds[0], szAuthIds[1], szAuthIds[2], szAuthIds[3], szAuthIds[3]);
     g_hDB.Query(DB_OnUserFetched, szQuery, GetClientUserId(iClient), DBPrio_High);
 }
